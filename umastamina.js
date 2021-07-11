@@ -7,7 +7,7 @@ function leaveOnlyNumber(e){
   if ("0123456789".indexOf(st,0) < 0) { return false; }
   return true;  
 };
-// ボタンを押すと、ブロック内のプログラムが実行される
+// ボタンを押すとブロック内のプログラムが実行
 $("#btn1").on("click", function()  {
   let speed = document.getElementById("speedInput").value;
   let guts = document.getElementById("gutsInput").value;
@@ -19,17 +19,15 @@ $("#btn1").on("click", function()  {
   let style_a = 1;
   let distance = document.getElementById("distance").value;
   let distance_a = document.getElementById("distance_aptitude").value;
-  let distance_a_s = 1;
+
 	let baba_a = 1;
 
- let style_table = [
+  let style_table = [
 	[0.950,  1.000, 0.980, 0.962,  1.000, 1.000, 0.996],
 	[0.890,  0.978, 0.991, 0.975,  0.985, 1.000, 0.996],
 	[1.000,  0.938, 0.998, 0.994,  0.975, 1.000, 1.000],
 	[0.995,  0.931, 1.000, 1.000,  0.945, 1.000, 0.997]
-	];
-
-
+  ];
 
 
   let c_speed = speed*motiva*1;
@@ -83,14 +81,20 @@ let HP_a_ph3 = 20 * babaHPc * gutsHPc * (Math.pow(a_ph3,2) / 3 * Math.pow(t_a_ph
 let d_a_spurt = ((v_spurt + v_ph1)/2) * ((v_spurt - v_ph1)/a_ph3);
 let d_s_spurt = distance/3 - d_a_spurt;	//60m減速無し
 let t_s_spurt = d_s_spurt / v_spurt;
+
 let HP_s_spurt = 20 * babaHPc * gutsHPc * Math.pow(v_spurt - v_base + 12,2) / 144 * t_s_spurt;
-let HP_sum_ph01 = HP_a_ph0 + HP_s_ph0 + HP_a_ph1 + HP_s_ph1;
+let HP_sum_ph01 = HP_a_start + HP_a_ph0 + HP_s_ph0 + HP_a_ph1 + HP_s_ph1;
 let HP_sum_1 = HP_sum_ph01 + HP_a_ph2 + HP_a_ph3 + HP_s_spurt;
 let stamina_1 = (HP_sum_1 / (1 + 0 / 10000) - distance)/(0.8*style_table[style][0])/motiva;
 
+let t_sum_ph01 = t_a_start + t_a_ph0 + t_s_ph0 + t_a_ph1 + t_s_ph1;
+let t_sum_1 = t_sum_ph01 + t_a_ph2 + t_a_ph3 + t_s_spurt;
+let time_d = t_sum_1 * 1.18;
+
+
   let HP_need = Math.ceil(HP_sum_1);
   let stamina_need = Math.ceil(stamina_1);
-  $("#log").val(
+  $("#log").val("debug\n" +
 "v_ph0:" + v_ph0 + "\n" +
 "v_ph1:" + v_ph1 + "\n" +
 "v_ph2:" + v_ph2 + "\n" +
@@ -105,7 +109,8 @@ let stamina_1 = (HP_sum_1 / (1 + 0 / 10000) - distance)/(0.8*style_table[style][
 "HP_sum_ph01:" + HP_sum_ph01 + "\n" +
 "HP_sum_1:" + HP_sum_1 + "\n" +
 "stamina_1:" + Math.ceil(stamina_1) + "\n" +
-"HP_sum_1:" + HP_sum_1 + "\n" +
+"t_sum_1:" + t_sum_1 + "\n" +
+"time_d:" + time_d + "\n" +
 "HP_sum_1:" + HP_sum_1 + "\n" +
 
 ":");
@@ -113,7 +118,7 @@ let stamina_1 = (HP_sum_1 / (1 + 0 / 10000) - distance)/(0.8*style_table[style][
   let rare_stamina = Math.round(HP_need * 0.055);
   let nomal_stamina = Math.round(HP_need * 0.015);
   //let message = `${stamina_need}`
-  // jQueryを使って画面にメッセージを表示する
+  // jQueryを使って画面にメッセージを表示
   $("#tBox").val(stamina_need);
   $("#tBox2").val(rare_stamina);
   $("#tBox3").val(nomal_stamina);
