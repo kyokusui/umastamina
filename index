@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head>
+<body>
+<p><strong>ウマ娘必要スタミナ計算機</strong></p>
+<p class="title">ウマ必要スタミナ計算機Ver0.01</p>
+    <div id="area1">
+      スピード(1-1200)<input type="tel" name="speedInput" id="speedInput" maxlength="4" value="1200"><br>
+      根性(1-1200)<input type="tel" name="gutsInput" id="gutsInput" maxlength="4" value="400"><br>
+      <label for="motivation">やる気</label>
+      <select id="motivation">
+      <option value="1.04">絶好調</option>
+      <option value="1.02">好調</option>
+      <option value="1.0">普通</option>
+      <option value="0.98">不調</option>
+      <option value="0.95">絶不調</option>
+      </select>
+      <label for="running_style">脚質</label>
+      <select id="running_style">
+      <option value="0">逃げ</option>
+      <option value="1">先行</option>
+      <option value="2">差し</option>
+      <option value="3">追込</option>
+      </select>
+      <label for="distance">レース距離</label>
+      <select id="distance">
+      <option value="1000">1000m</option>
+      <option value="1200">1200m</option>
+      <option value="1400">1400m</option>
+      <option value="1500">1500m</option>
+      <option value="1600">1600m</option>
+      <option value="1800" selected>1800m</option>
+      <option value="2000">2000m</option>
+      <option value="2200">2200m</option>
+      <option value="2400">2400m</option>
+      <option value="2500">2500m</option>
+      <option value="2600">2600m</option>
+      <option value="3000">3000m</option>
+      <option value="3200">3200m</option>
+      <option value="3400">3400m</option>
+      <option value="3600">3600m</option>
+      </select>
+      <label for="distance_aptitude">距離適性補正</label>
+      <select id="distance_aptitude">
+      <option value="1.05">S</option>
+      <option value="1.00" selected="">A</option>
+      <option value="0.90">B</option>
+      <option value="0.80">C</option>
+      <option value="0.60">D</option>
+      <option value="0.40">E</option>
+      <option value="0.20">F</option>
+      <option value="0.10">G</option>
+      </select>
+
+      <button type="button" id="btn1">必要スタミナを計算</button>
+      <br>
+      必要スタミナ<input type="text" id="tBox" class="font-main"><br>
+      金回復スキル回復スタミナ量<input type="text" id="tBox2" class="font-main"><br>
+      白回復スキル回復スタミナ量<input type="text" id="tBox3" class="font-main"><br>
+      金回復スキルは、円弧のマエストロ、食いしん坊、好機一転など、<br>
+      白回復スキルは、コーナー回復、栄養補給、直線回復などのスキルを表します。
+    </div>
+
+
+    <div>
+      基準目標速度<input type="text" id="tBox01" class="font-main" /></br>
+      消費ENps<input type="text" id="tBox02" class="font-main" /></br>
+      スパート消費ENps<input type="text" id="tBox03" class="font-main" /></br>
+<textarea id="log" name="story"
+          rows="25" cols="50">
+It was a dark and stormy night...
+</textarea>
+    </div>
+<script type="text/javascript" src="./jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="./umastamina.js"></script>
+
+</body></html>
