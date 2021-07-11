@@ -88,7 +88,7 @@ let HP_sum_ph01 = HP_a_ph0 + HP_s_ph0 + HP_a_ph1 + HP_s_ph1;
 let HP_sum_1 = HP_sum_ph01 + HP_a_ph2 + HP_a_ph3 + HP_s_spurt;
 let stamina_1 = (HP_sum_1 / (1 + 0 / 10000) - distance)/(0.8*style_table[style][0])/motiva;
 
-  let energy_need = Math.ceil(HP_sum_1);
+  let HP_need = Math.ceil(HP_sum_1);
   let stamina_need = Math.ceil(stamina_1);
   $("#log").val(
 "v_ph0:" + v_ph0 + "\n" +
@@ -110,13 +110,13 @@ let stamina_1 = (HP_sum_1 / (1 + 0 / 10000) - distance)/(0.8*style_table[style][
 
 ":");
 
-  let blue_stamina = Math.round(energy_need * 0.055);
-  let white_stamina = Math.round(energy_need * 0.015);
+  let rare_stamina = Math.round(HP_need * 0.055);
+  let nomal_stamina = Math.round(HP_need * 0.015);
   //let message = `${stamina_need}`
   // jQueryを使って画面にメッセージを表示する
   $("#tBox").val(stamina_need);
-  $("#tBox2").val(blue_stamina);
-  $("#tBox3").val(white_stamina);
+  $("#tBox2").val(rare_stamina);
+  $("#tBox3").val(nomal_stamina);
 
 
 });
