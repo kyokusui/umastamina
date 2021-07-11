@@ -2,12 +2,12 @@ $('#speedInput').on("keypress", function(event){return leaveOnlyNumber(event);})
 $('#gutsInput').on("keypress", function(event){return leaveOnlyNumber(event);});
 
 function leaveOnlyNumber(e){
-  // ”šˆÈŠO‚Ì•s—v‚È•¶š‚ğíœ
+  // æ•°å­—ä»¥å¤–ã®ä¸è¦ãªæ–‡å­—ã‚’å‰Šé™¤
   var st = String.fromCharCode(e.which);
   if ("0123456789".indexOf(st,0) < 0) { return false; }
   return true;  
 };
-// ƒ{ƒ^ƒ“‚ğ‰Ÿ‚·‚ÆAƒuƒƒbƒN“à‚ÌƒvƒƒOƒ‰ƒ€‚ªÀs‚³‚ê‚é
+// ãƒœã‚¿ãƒ³ã‚’æŠ¼ã™ã¨ã€ãƒ–ãƒ­ãƒƒã‚¯å†…ã®ãƒ—ãƒ­ã‚°ãƒ©ãƒ ãŒå®Ÿè¡Œã•ã‚Œã‚‹
 $("#btn1").on("click", function()  {
   let speed = document.getElementById("speedInput").value;
   let guts = document.getElementById("gutsInput").value;
@@ -81,7 +81,7 @@ let t_a_ph3 = (v_spurt - v_ph2)/a_ph3;
 let HP_a_ph3 = 20 * babaHPc * gutsHPc * (Math.pow(a_ph3,2) / 3 * Math.pow(t_a_ph3,3)  + a_ph3 * (v_ph2 - v_base + 12) * Math.pow(t_a_ph3,2) + Math.pow(v_ph2 - v_base + 12,2) * t_a_ph3) / 144;
 
 let d_a_spurt = ((v_spurt + v_ph1)/2) * ((v_spurt - v_ph1)/a_ph3);
-let d_s_spurt = distance/3 - d_a_spurt;	//60mŒ¸‘¬–³‚µ
+let d_s_spurt = distance/3 - d_a_spurt;	//60mæ¸›é€Ÿç„¡ã—
 let t_s_spurt = d_s_spurt / v_spurt;
 let HP_s_spurt = 20 * babaHPc * gutsHPc * Math.pow(v_spurt - v_base + 12,2) / 144 * t_s_spurt;
 let HP_sum_ph01 = HP_a_ph0 + HP_s_ph0 + HP_a_ph1 + HP_s_ph1;
@@ -113,13 +113,10 @@ let stamina_1 = (HP_sum_1 / (1 + 0 / 10000) - distance)/(0.8*style_table[style][
   let blue_stamina = Math.round(energy_need * 0.055);
   let white_stamina = Math.round(energy_need * 0.015);
   //let message = `${stamina_need}`
-  // jQuery‚ğg‚Á‚Ä‰æ–Ê‚ÉƒƒbƒZ[ƒW‚ğ•\¦‚·‚é
+  // jQueryã‚’ä½¿ã£ã¦ç”»é¢ã«ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’è¡¨ç¤ºã™ã‚‹
   $("#tBox").val(stamina_need);
   $("#tBox2").val(blue_stamina);
   $("#tBox3").val(white_stamina);
 
 
-  $("#tBox01").val(v_base);
-  $("#tBox02").val();
-  $("#tBox03").val();
 });
