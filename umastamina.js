@@ -24,8 +24,8 @@ $("#btn1").on("click", function()  {
 
  let style_table = [
 	[0.950,  1.000, 0.980, 0.962,  1.000, 1.000, 0.996],
-	[0.890,  0.978, 0.991, 0.975,  0.985, 1.000, 0.996]
-	[1.000,  0.938, 0.998, 0.994,  0.975, 1.000, 1.000]
+	[0.890,  0.978, 0.991, 0.975,  0.985, 1.000, 0.996],
+	[1.000,  0.938, 0.998, 0.994,  0.975, 1.000, 1.000],
 	[0.995,  0.931, 1.000, 1.000,  0.945, 1.000, 0.997]
 	];
 
@@ -38,9 +38,9 @@ $("#btn1").on("click", function()  {
   let c_power = power*motiva*1;
   let v_base = 20+(2000-distance)/1000;
 
-  let v_ph0 = v_base * style_table[0][1] + ((c_wisdom / 5500) * Math.log10(c_wisdom * 0.1) - 0.65 / 2) * 0.01 * v_base;
-  let v_ph1 = v_base * style_table[0][2] + ((c_wisdom / 5500) * Math.log10(c_wisdom * 0.1) - 0.65 / 2) * 0.01 * v_base;
-  let v_ph2 = v_base * style_table[0][3] + Math.sqrt(500 * c_speed) * distance_a * 0.002 + ((c_wisdom / 5500) * Math.log10(c_wisdom * 0.1) - 0.65 / 2) * 0.01 * v_base;
+  let v_ph0 = v_base * style_table[style][1] + ((c_wisdom / 5500) * Math.log10(c_wisdom * 0.1) - 0.65 / 2) * 0.01 * v_base;
+  let v_ph1 = v_base * style_table[style][2] + ((c_wisdom / 5500) * Math.log10(c_wisdom * 0.1) - 0.65 / 2) * 0.01 * v_base;
+  let v_ph2 = v_base * style_table[style][3] + Math.sqrt(500 * c_speed) * distance_a * 0.002 + ((c_wisdom / 5500) * Math.log10(c_wisdom * 0.1) - 0.65 / 2) * 0.01 * v_base;
   let v_spurt = (v_ph2 + 0.01 * v_base) * 1.05 + Math.sqrt(500 * c_speed) * distance_a * 0.002;
 
 let babaHPc = 1;
