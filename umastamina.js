@@ -133,9 +133,13 @@ $("#btn1").on("click", function()  {
 
 
 
-  $("#log").val("debug\n" +
+  $("#log").val("" +
+  "" + Math.ceil(stamina_need2) + "←最速スパートするための最低スタミナ（中盤までの回復スキル込み）\n" +
+  
+  "" + Math.ceil(stamina_need1 - stamina_need2) + "←ラスト60mで減速しないための追加必要スタミナ（終盤回復でもよい）\n" +
   "error_message:" + error_message + "\n" +
   
+  "debug\n" +
   "a:" + a + "\n" +
   "a_ph0:" + a_ph0 + "\n" +
   "a_ph1:" + a_ph1 + "\n" +
@@ -180,8 +184,6 @@ $("#btn1").on("click", function()  {
 
   "d_sum_2:" + d_sum_2 + "\n" +
   "t_sum_2:" + t_sum_2 + "\n" +
-  
-  "stamina_need2:" + Math.ceil(stamina_need2) + "\n" +
   
   ":");
   
