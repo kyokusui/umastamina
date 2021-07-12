@@ -9,11 +9,12 @@ input {font-size:1em; margin:1px; vertical-align:middle;}
   </style>
 </head>
 <body>
-<p><strong>ウマ娘必要スタミナ計算</strong></p>
+    <p><strong>ウマ娘必要スタミナ計算</strong></p>
     <div id="area1">
       スピード(1-1200)<input type="tel" name="speedInput" id="speedInput" maxlength="4" value="1200" size="4em"><br>
       パワー(1-1200)<input type="tel" name="powerInput" id="powerInput" maxlength="4" value="1200" size="4em"><br>
       根性(1-1200)<input type="tel" name="gutsInput" id="gutsInput" maxlength="4" value="300" size="4em"><br>
+      賢さ(1-1200)<input type="tel" name="wisdomInput" id="wisdomInput" maxlength="4" value="400" size="4em"><br>
       <label for="motivation">やる気</label>
       <select id="motivation">
       <option value="1.04">絶好調</option>
@@ -37,8 +38,8 @@ input {font-size:1em; margin:1px; vertical-align:middle;}
       <option value="1200">1200m</option>
       <option value="1400">1400m</option>
       <option value="1500">1500m</option>
-      <option value="1600">1600m</option>
-      <option value="1800" selected>1800m</option>
+      <option value="1600" selected>1600m</option>
+      <option value="1800">1800m</option>
       <option value="2000">2000m</option>
       <option value="2200">2200m</option>
       <option value="2400">2400m</option>
@@ -62,12 +63,15 @@ input {font-size:1em; margin:1px; vertical-align:middle;}
       <option value="0.10">G</option>
       </select>
       <br>
-      <button type="button" id="btn1">計算</button>
-      <br>
-      必要スタミナ<input type="text" id="tBox" class="font-main" size="4em"><br>
-      スキル回復スタミナ量:レア<input type="text" id="tBox2" class="font-main" size="4em">
-      通常<input type="text" id="tBox3" class="font-main" size="4em"><br>
-      <font size="0.5em">※逃げ以外はペースダウンモードがあるのでペースが遅ければ計算よりスタミナ消費は低くなる。</font>
+      <button type="button" id="btn1">計算</button><br>
+      必要スタミナ<input type="text" id="tBox" size="4em"><br>
+      スタミナ回復量:レア <span id="span1" size="4em">-</span> 通常 <span id="span2">-</span><br>
+      <div size="6em">推定表示タイム <span id="span3">-:-.-</span></div>
+      <div style="font-size:0.5em;">
+        ※終盤に入って最速でスパート開始しゴールまで減速せずに走り抜ける為のスタミナ計算。<br>
+        ※逃げ以外はペースダウンモードがありペースが遅ければ計算よりスタミナ消費は低くなりそう。<br>
+        ※ダートではタイムが合いません。<br>
+      </div>
     </div>
     <div>
       <textarea id="log" name="debug" rows="25" cols="50">
@@ -76,5 +80,5 @@ debug ...
     </div>
 <script type="text/javascript" src="./jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="./umastamina.js"></script>
-
-</body></html>
+</body>
+</html>
