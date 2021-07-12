@@ -85,6 +85,10 @@ $("#btn1").on("click", function()  {
   let t_s_ph1 = d_s_ph1/v_ph1;
   let HP_s_ph1 = 20 * babaHPc *           Math.pow(v_ph1 - v_base + 12.0, 2) / 144 * t_s_ph1;
   
+  let HP_sum_ph01 = HP_a_start + HP_a_ph0 + HP_s_ph0 + HP_a_ph1 + HP_s_ph1; //phase1までの消費HP
+  let d_sum_ph01 = d_a_start + d_a_ph0 + d_s_ph0 + d_a_ph1 + d_s_ph1; //phase1までの経過距離
+  let t_sum_ph01 = t_a_start + t_a_ph0 + t_s_ph0 + t_a_ph1 + t_s_ph1; //phase1までの経過時間
+
   let a_ph2 = a;
   let t_a_ph2 = (v_ph2 - v_ph1)/a_ph2;
   let HP_a_ph2 = 20 * babaHPc * gutsHPc * (Math.pow(a_ph2,2) / 3 * Math.pow(t_a_ph2,3)  + a_ph2 * (v_ph1 - v_base + 12) * Math.pow(t_a_ph2,2) + Math.pow(v_ph1 - v_base + 12,2) * t_a_ph2) / 144;
@@ -98,26 +102,38 @@ $("#btn1").on("click", function()  {
   let d_a_ph3 = ((v_ph3 + v_ph2)/2) * ((v_ph3 - v_ph2)/a_ph3);
   
 
-  let HP_sum_ph01 = HP_a_start + HP_a_ph0 + HP_s_ph0 + HP_a_ph1 + HP_s_ph1;
   let d_a_spurt = ((v_spurt + v_ph1)/2) * ((v_spurt - v_ph1)/a_ph3);
   let d_s_spurt = distance/3 - d_a_spurt;	//60m減速無し
   let t_s_spurt = d_s_spurt / v_spurt;
   let HP_s_spurt = 20 * babaHPc * gutsHPc * Math.pow(v_spurt - v_base + 12,2) / 144 * t_s_spurt;
-  let HP_sum_1 = HP_sum_ph01 + HP_a_ph2 + HP_a_ph3 + HP_s_spurt; //
-  let stamina_1 = (HP_sum_1 / (1 + 0 / 10000) - distance)/(0.8*style_table[style][0])/motiva;
-  
-  let d_sum_ph01 = d_a_start + d_a_ph0 + d_s_ph0 + d_a_ph1 + d_s_ph1;
+  let HP_need = HP_sum_ph01 + HP_a_ph2 + HP_a_ph3 + HP_s_spurt; //
+  let stamina_need1 = (HP_need / (1 + 0 / 10000) - distance)/(0.8*style_table[style][0])/motiva; //最速スパート開始し減速せず走り抜ける為に必要なスタミナ
+  //初期HP = 0.8 × 脚質係数 × 補正スタミナ値 + コース距離[m]
+
   let d_sum_1 = d_sum_ph01 + d_a_ph2 + d_a_ph3 + d_s_spurt;
-  
-  let t_sum_ph01 = t_a_start + t_a_ph0 + t_s_ph0 + t_a_ph1 + t_s_ph1;
   let t_sum_1 = t_sum_ph01 + t_a_ph2 + t_a_ph3 + t_s_spurt;
   let time_c = Math.round(t_sum_1 * 1.18 * 1000)/1000;	//補正後タイム
   let time_d = "" + Math.floor(time_c / 60) + ":" + Math.floor(time_c % 60 * 100)/100;	//表示タイム
   
+  let d_a_spurt2 = ((v_spurt + v_ph1)/2) * ((v_spurt - v_ph1)/a_ph3);
+  let d_s_spurt2 = distance/3 - d_a_spurt2 - 60;	//60m減速有り
+  let t_s_spurt2 = d_s_spurt2 / v_spurt;
+  let HP_s_spurt2 = 20 * babaHPc * gutsHPc * Math.pow(v_spurt - v_base + 12,2) / 144 * t_s_spurt2;
+  let HP_need2 = HP_sum_ph01 + HP_a_ph2 + HP_a_ph3 + HP_s_spurt2; //
+  let stamina_need2 = (HP_need2 / (1 + 0 / 10000) - distance)/(0.8*style_table[style][0])/motiva; //最速スパート開始に必要なスタミナ
+
+  let t_d_last = (-v_spurt + Math.sqrt(Math.pow(v_spurt,2) + 2 * -1.2 * 60)) / -1.2;
+  let d_d_last = v_spurt*t_d_last + (-1.2)/2*Math.pow(t_d_last,2);
+  let d_sum_2 = d_sum_ph01 + d_a_ph2 + d_a_ph3 + d_s_spurt2 + d_d_last;
+  let t_sum_2 = t_sum_ph01 + t_a_ph2 + t_a_ph3 + t_s_spurt2 + t_d_last;
+
+  let time_c2 = Math.round(t_sum_2 * 1.18 * 1000)/1000;	//補正後タイム
+  let time_d2 = "" + Math.floor(time_c2 / 60) + ":" + Math.floor(time_c2 % 60 * 100)/100;	//表示タイム
   
-    let HP_need = Math.ceil(HP_sum_1);
-    let stamina_need = Math.ceil(stamina_1);
-    $("#log").val("debug\n" +
+
+
+
+  $("#log").val("debug\n" +
   "error_message:" + error_message + "\n" +
   
   "a:" + a + "\n" +
@@ -145,6 +161,8 @@ $("#btn1").on("click", function()  {
   "d_a_ph2:" + d_a_ph2 + "\n" +
   "d_a_ph3:" + d_a_ph3 + "\n" +
   "d_s_spurt:" + d_s_spurt + "\n" +
+  "d_sum_ph01:" + d_sum_ph01 + "\n" +
+  "d_sum_1:" + d_sum_1 + "\n" +
   "HP_a_ph0:" + HP_a_ph0 + "\n" +
   "HP_s_ph0:" + HP_s_ph0 + "\n" +
   "HP_a_ph1:" + HP_a_ph1 + "\n" +
@@ -154,26 +172,28 @@ $("#btn1").on("click", function()  {
   "HP_a_ph3:" + HP_a_ph3 + "\n" +
   "HP_s_spurt:" + HP_s_spurt + "\n" +
   "HP_sum_ph01:" + HP_sum_ph01 + "\n" +
-  "HP_sum_1:" + HP_sum_1 + "\n" +
-  "stamina_1:" + Math.ceil(stamina_1) + "\n" +
+  "HP_sum_1:" + HP_need + "\n" +
+  "stamina_need1:" + Math.ceil(stamina_need1) + "\n" +
   "t_sum_1:" + t_sum_1 + "\n" +
   "補正後タイムtime_c:" + time_c + "秒\n" +
-  
   "表示タイム:" + time_d + "\n" +
-  "HP_sum_1:" + HP_sum_1 + "\n" +
-  "d_sum_ph01:" + d_sum_ph01 + "\n" +
-  "d_sum_1:" + d_sum_1 + "\n" +
+
+  "d_sum_2:" + d_sum_2 + "\n" +
+  "t_sum_2:" + t_sum_2 + "\n" +
+  
+  "stamina_need2:" + Math.ceil(stamina_need2) + "\n" +
   
   ":");
   
-  let rare_stamina = Math.round(HP_need * 0.055);
-  let nomal_stamina = Math.round(HP_need * 0.015);
+  let rare_stamina = Math.round(0.055/(1+0.055) * (stamina_need1 + distance / (0.8 * style_table[style][0])));
+  let nomal_stamina = Math.round(0.015/(1+0.015) * (stamina_need1 + distance / (0.8 * style_table[style][0])));
   //let message = `${stamina_need}`
   // jQueryを使って画面にメッセージを表示
-  $("#tBox").val(stamina_need);
+  $("#tBox").val(Math.ceil(stamina_need1));
   $("#span1").text(rare_stamina);
   $("#span2").text(nomal_stamina);
   $("#span3").text(time_d);
+  $("#span4").text(Math.ceil(stamina_need2));
 
 
 });
