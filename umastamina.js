@@ -20,6 +20,7 @@ $("#btn1").on("click", function()  {
   let style_a = 1;
   let distance = document.getElementById("distance").value;
   let distance_a = document.getElementById("distance_aptitude").value;
+  let baba_condition = document.getElementById("baba_condition").value;
 
 　let baba_a = 1;
 
@@ -32,11 +33,17 @@ $("#btn1").on("click", function()  {
   	[0.995,  0.931, 1.000, 1.000,  0.945, 1.000, 0.997]
   ];
 
+  let baba_table = [
+  	[0, 0, 0, -50],
+  	[0, -50, -50, -50],
+  	[1, 1, 1.02, 1.02],
+  ];
 
-  let c_speed = speed*motiva*1;
+
+  let c_speed = speed*motiva*1 + baba_table[0][baba_condition];
   let c_guts = guts*motiva*1;
   let c_wisdom = wisdom*motiva*1;
-  let c_power = power*motiva*1;
+  let c_power = power*motiva*1 + baba_table[1][baba_condition];
   let v_base = 20+(2000-distance)/1000;
 
   let v_ph0 = v_base * style_table[style][1] + ((c_wisdom / 5500) * Math.log10(c_wisdom * 0.1) - 0.65 / 2) * 0.01 * v_base;
@@ -45,7 +52,7 @@ $("#btn1").on("click", function()  {
   let v_ph3 = v_base * style_table[style][3] + Math.sqrt(500 * c_speed) * distance_a * 0.002 + ((c_wisdom / 5500) * Math.log10(c_wisdom * 0.1) - 0.65 / 2) * 0.01 * v_base;
   let v_spurt = (v_ph2 + 0.01 * v_base) * 1.05 + Math.sqrt(500 * c_speed) * distance_a * 0.002;
 
-  let babaHPc = 1;
+  let babaHPc = baba_table[2][baba_condition];
   let gutsHPc = 1 + (200 / Math.sqrt(600 * c_guts));
   let a = 0.0006 * Math.sqrt(500.0 * c_power) * style_a * distance_a * baba_a
   let HP_sum = 0;
@@ -140,6 +147,11 @@ $("#btn1").on("click", function()  {
   "error_message:" + error_message + "\n" +
   
   "debug\n" +
+  "c_speed:" + c_speed + "\n" +
+  "c_power:" + c_power + "\n" +
+  "c_guts:" + c_guts + "\n" +
+  "c_wisdom:" + c_wisdom + "\n" +
+  "babaHPc:" + babaHPc + "\n" +
   "a:" + a + "\n" +
   "a_ph0:" + a_ph0 + "\n" +
   "a_ph1:" + a_ph1 + "\n" +
