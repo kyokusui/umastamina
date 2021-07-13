@@ -144,10 +144,10 @@ $("#btn1").on("click", function()  {
   $("#log").val("" +
   "" + Math.ceil(stamina_need2) + "←終盤と同時にスパートするための最低スタミナ（中盤までの回復スキル込み）\n" +
   
-  "" + Math.ceil(stamina_need1 - stamina_need2) + "←ラスト60mで減速しないための追加必要スタミナ（終盤回復でもよい）\n" +
+  "" + Math.ceil(stamina_need1 - stamina_need2) + "←ラスト60mで減速しないための追加必要スタミナ（終盤回復でもよいかも）\n" +
   "error_message:" + error_message + "\n" +
   
-  "debug\n" +
+  "debug---------\n" +
   "c_speed:" + c_speed + "\n" +
   "c_power:" + c_power + "\n" +
   "c_guts:" + c_guts + "\n" +
