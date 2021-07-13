@@ -120,7 +120,8 @@ $("#btn1").on("click", function()  {
   let d_sum_1 = d_sum_ph01 + d_a_ph2 + d_a_ph3 + d_s_spurt;
   let t_sum_1 = t_sum_ph01 + t_a_ph2 + t_a_ph3 + t_s_spurt;
   let time_c = Math.round(t_sum_1 * 1.18 * 1000)/1000;	//補正後タイム
-  let time_d = "" + Math.floor(time_c / 60) + ":" + Math.floor(time_c % 60 * 100)/100;	//表示タイム
+ // let temp = if(1 = Math.floor(time_c % 60).toString().length);{}
+  let time_d = "" + Math.floor(time_c / 60) + ":" + (Math.floor(time_c % 60 * 100)/100 + 100).toString().substr(1,5);	//表示タイム
   
   let d_a_spurt2 = ((v_spurt + v_ph1)/2) * ((v_spurt - v_ph1)/a_ph3);
   let d_s_spurt2 = distance/3 - d_a_spurt2 - 60;	//60m減速有り
@@ -141,7 +142,7 @@ $("#btn1").on("click", function()  {
 
 
   $("#log").val("" +
-  "" + Math.ceil(stamina_need2) + "←最速スパートするための最低スタミナ（中盤までの回復スキル込み）\n" +
+  "" + Math.ceil(stamina_need2) + "←終盤と同時にスパートするための最低スタミナ（中盤までの回復スキル込み）\n" +
   
   "" + Math.ceil(stamina_need1 - stamina_need2) + "←ラスト60mで減速しないための追加必要スタミナ（終盤回復でもよい）\n" +
   "error_message:" + error_message + "\n" +
