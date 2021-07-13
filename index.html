@@ -34,30 +34,31 @@
 
     /*　-----------*/
 
-    
+
     div {
       display: table !important;
-      width :;
+      width: 100%;
       margin: auto;
       margin-left: auto;
       margin-right: auto;
-      background-color:#aaaaFF;
+      background-color: white;
     }
+
     .d1 {
       display: table !important;
-      width :;
+      width: ;
       margin: auto;
       margin-left: auto;
       margin-right: auto;
     }
 
     body {
-      background-color:lightgray ;
-      border:solid thin black ;
-      
-      margin:auto;
-      
-  /*　----------- text-align: center;
+      background-color: lightgray;
+      border: solid thin black;
+
+      margin: auto;
+
+      /*　----------- text-align: center;
       align-items: center;*/
     }
 
@@ -69,16 +70,15 @@
     }
 
     table {
+      width: 90%;
       border-collapse: collapse;
       display: table !important;
       margin: auto;
-      margin-left: auto;
-      margin-right: auto;
+      margin-left: 5%;
+      margin-right: 5%;
     }
 
-    .table1 {
-      width: 20em;
-    }
+    .table1 {}
 
     .tr {
       width: 100%;
@@ -89,27 +89,30 @@
     }
 
     .td1 {
-      width:  25%;
+      width: 25%;
       text-align: center;
       background-color: #EEEEEE
     }
+
     .td2 {
       width: 25%;
       text-align: center;
       align-content: center;
     }
+
     .td3 {
-      width:25%;
+      width: ;
       text-align: center;
       background-color: #EEEEEE;
-      padding-right: 5px;
-      padding-left: 5px;
+      padding-right: 1px;
+      padding-left: 1px;
     }
+
     .td4 {
       text-align: center;
     }
 
-      -->
+    -->
   </style>
   <title>ウマ娘スタミナ計算</title>
 </head>
@@ -208,25 +211,30 @@
         </tr>
       </table>
     </div>
-    <div>
-      <button style="font-size:1em;" type="button" id="btn1">計算</button><br>
-      必要スタミナ<input type="text" id="tBox" size="4em"><br>
-    </div>
-
-    <div>回復スキル相当スタミナ:レア <span id="span1" size="4em">-</span> 通常 <span id="span2">-</span></div>
-    <div size="6em">推定表示タイム <span id="span3">-:-.-</span></div>
-    <div style="font-size:0.5em;size:100%;">
-      ※逃げ以外はペースダウンモードがありペースが遅ければ計算よりスタミナ消費は低くなりそう。<br>
-      ※ダートではタイムが合いません。<br>
-    </div>
-  </div>
-  <div>
-    <textarea id="log" name="debug" rows="25" cols="50">
+    <div style="text-align:center;">
+      必要スタミナ
+      <input type="text" id="tBox" size="4em">
+      <button style="font-size:1em;" type="button" id="btn1">計算</button>
+      <div style="font-size:0.8em;">
+        回復スキル相当スタミナ:
+         レア <span id="span1" size="4em">-</span>
+         通常 <span id="span2">-</span>
+      </div>
+      <div style="font-size:0.8em;">
+        推定表示タイム <span id="span3">-:-.-</span>
+      </div>
+      <div style="font-size:0.5em;size:100%;">
+        ※逃げ以外はペースダウンモードがありペースが遅ければ計算よりスタミナ消費は低くなる。<br>
+        ※ダートではタイムが合いません。<br>
+      </div>
+      <div>
+        <textarea id="log" name="debug" rows="25" cols="50">
 debug ...
-      </textarea>
-  </div>
-  <script type="text/javascript" src="./jquery-3.4.1.min.js"></script>
-  <script type="text/javascript" src="./umastamina.js"></script>
+        </textarea>
+      </div>
+    </div>
+    <script type="text/javascript" src="./jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="./umastamina.js"></script>
 </body>
 
 </html>
