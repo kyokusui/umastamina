@@ -158,7 +158,7 @@ $("#btn1").on("click", function()  {
 
   let d_sum_1 = d_sum_ph01 + d_a_spurt + d_s_spurt;
   let t_sum_1 = t_sum_ph01 + t_a_spurt + t_s_spurt;
-  let time_c = Math.round(t_sum_1 * 1.18 * 1000)/1000;	//補正後タイム
+  let time_c = Math.round(t_sum_1 * 1.18 * 100)/100;	//補正後タイム
  // let temp = if(1 = Math.floor(time_c % 60).toString().length);{}
   let time_d = "" + Math.floor(time_c / 60) + ":" + (Math.floor(time_c % 60 * 100)/100 + 100).toString().substr(1,5);	//表示タイム
   
@@ -174,7 +174,7 @@ $("#btn1").on("click", function()  {
   let d_sum_2 = d_sum_ph01 + d_a_ph2 + d_a_ph3 + d_s_spurt2 + d_d_last;
   let t_sum_2 = t_sum_ph01 + t_a_ph2 + t_a_ph3 + t_s_spurt2 + t_d_last;
 
-  let time_c2 = Math.round(t_sum_2 * 1.18 * 1000)/1000;	//補正後タイム
+  let time_c2 = Math.round(t_sum_2 * 1.18 * 100)/100;	//補正後タイム
   let time_d2 = "" + Math.floor(time_c2 / 60) + ":" + Math.floor(time_c2 % 60 * 100)/100;	//表示タイム
   
   $("#log").val("" +
