@@ -17,12 +17,15 @@ $("#btn1").on("click", function()  {
   let motiva = document.getElementById("motivation").value;
   let style = document.getElementById("running_style").value;
 
-  let style_a = 1;
+  let style_a = 1;//賢さ脚質補正は１
   let distance = document.getElementById("distance").value;
   let distance_a = document.getElementById("distance_aptitude").value;
   let baba_condition = document.getElementById("baba_condition").value;
 
-　let baba_a = 1;
+　let baba_a = 1; //バ場適性は１
+
+　let course_c = 1; //コース係数は１
+
 
 　let error_message = "";
 
@@ -31,39 +34,48 @@ $("#btn1").on("click", function()  {
   	[0.890,  0.978, 0.991, 0.975,  0.985, 1.000, 0.996],
   	[1.000,  0.938, 0.998, 0.994,  0.975, 1.000, 1.000],
   	[0.995,  0.931, 1.000, 1.000,  0.945, 1.000, 0.997]
-  ];
+  ];//HP補正　スピード補正　　　　　　加速度補正
 
   let baba_table = [
   	[0, 0, 0, -50],
   	[0, -50, -50, -50],
   	[1, 1, 1.02, 1.02],
+  	[-100, -50, -100, -100],
+  	[1, 1, 1.01, 1.02],
   ];
+  //バ場補正 (スピード)：不良 → -50、それ以外 → 0
+  //バ場補正 (パワー)：芝 良 → 0,それ以外 → -50 : ダ 稍重 → -50,それ以外 → -100
+  //バ場-消費HP補正：芝 1, 1, 1.02, 1.02：ダート 1, 1, 1.01, 1.02
+  let babaHPc = baba_table[2][baba_condition];
 
+  let c_speed = speed*motiva*course_c + baba_table[0][baba_condition];
+  //補正スピード値=スピード値×やる気係数×コース係数+バ場補正(+育成補正+スキル補正)
+  let c_guts = guts*motiva;
+   //補正根性値=根性値×やる気係数(+育成補正+スキル補正)
+  let c_wisdom = wisdom*motiva*style_a;
+  //補正賢さ値=賢さ値×やる気係数×脚質補正+育成補正+スキル
+  let c_power = power*motiva + baba_table[1][baba_condition];
+  //補正パワー値=パワー値×やる気係数+バ場補正+育成補正+スキル補正
 
-  let c_speed = speed*motiva*1 + baba_table[0][baba_condition];
-  let c_guts = guts*motiva*1;
-  let c_wisdom = wisdom*motiva*1;
-  let c_power = power*motiva*1 + baba_table[1][baba_condition];
   let v_base = 20+(2000-distance)/1000;
-
   let v_ph0 = v_base * style_table[style][1] + ((c_wisdom / 5500) * Math.log10(c_wisdom * 0.1) - 0.65 / 2) * 0.01 * v_base;
   let v_ph1 = v_base * style_table[style][2] + ((c_wisdom / 5500) * Math.log10(c_wisdom * 0.1) - 0.65 / 2) * 0.01 * v_base;
   let v_ph2 = v_base * style_table[style][3] + Math.sqrt(500 * c_speed) * distance_a * 0.002 + ((c_wisdom / 5500) * Math.log10(c_wisdom * 0.1) - 0.65 / 2) * 0.01 * v_base;
   let v_ph3 = v_base * style_table[style][3] + Math.sqrt(500 * c_speed) * distance_a * 0.002 + ((c_wisdom / 5500) * Math.log10(c_wisdom * 0.1) - 0.65 / 2) * 0.01 * v_base;
   let v_spurt = (v_ph2 + 0.01 * v_base) * 1.05 + Math.sqrt(500 * c_speed) * distance_a * 0.002;
 
-  let babaHPc = baba_table[2][baba_condition];
-  let gutsHPc = 1 + (200 / Math.sqrt(600 * c_guts));
-  let a = 0.0006 * Math.sqrt(500.0 * c_power) * style_a * distance_a * baba_a
+  let gutsHPc = 1 + (200 / Math.sqrt(600 * c_guts)); //終盤根性係数
+  let a = 0.0006 * Math.sqrt(500.0 * c_power) * baba_a * distance_a;
+  //加速度(加速時) = 0.0006 × sqrt(500.0 × 補正パワー値) × バ場適性係数 × 距離適性係数 × 脚質係数(脚質＆phase) (+ スキル補正) [m/s^2]
   let HP_sum = 0;
   
-  let a_start = 24 + a;
+  let a_start = 24 + (0.0006 * Math.sqrt(500.0 * c_power) * style_table[style][4] * distance_a * baba_a);
   let v_start = v_base * 0.85;
   let t_a_start = (v_start - 3.0)/a_start;
   let HP_a_start = 20 * babaHPc * (Math.pow(a_start,2) / 3 * Math.pow(t_a_start,3)  + a_start * (3.0 - v_base + 12) * Math.pow(t_a_start,2) + Math.pow(3.0 - v_base + 12,2) * t_a_start) / 144;
   let d_a_start = (3.0 + v_start)/2 * t_a_start;
   
-  let a_ph0 = a*style_table[style][4];
+  let a_ph0 = 0.0006 * Math.sqrt(500.0 * c_power) * baba_a * distance_a *style_table[style][4];
   let t_a_ph0 = (v_ph0 - v_start)/a_ph0;
   let d_a_ph0 = (v_ph0 + v_start)/2 * t_a_ph0;
   let HP_a_ph0 = 0;
@@ -82,7 +94,7 @@ $("#btn1").on("click", function()  {
     error_message = error_message + "d_s_ph0 error";
   };
   
-  let a_ph1 = a*style_table[style][5];
+  let a_ph1 =  0.0006 * Math.sqrt(500.0 * c_power) * baba_a * distance_a * style_table[style][5];
   if (v_ph1 <= v_ph0) {a_ph1 = -0.8;}; //phase1目標速度がphase0速度より低い場合減速
   let t_a_ph1 = (v_ph1 - v_ph0)/a_ph1;
   let HP_a_ph1 = 20 * babaHPc *           (Math.pow(a_ph1,2) / 3 * Math.pow(t_a_ph1,3)  + a_ph1 * (v_ph0 - v_base + 12) * Math.pow(t_a_ph1,2) + Math.pow(v_ph0 - v_base + 12,2) * t_a_ph1) / 144;
@@ -96,13 +108,13 @@ $("#btn1").on("click", function()  {
   let d_sum_ph01 = d_a_start + d_a_ph0 + d_s_ph0 + d_a_ph1 + d_s_ph1; //phase1までの経過距離
   let t_sum_ph01 = t_a_start + t_a_ph0 + t_s_ph0 + t_a_ph1 + t_s_ph1; //phase1までの経過時間
 
-  let a_ph2 = a;
+  let a_ph2 = 0.0006 * Math.sqrt(500.0 * c_power) * baba_a * distance_a * style_table[style][6];
   let t_a_ph2 = (v_ph2 - v_ph1)/a_ph2;
   let HP_a_ph2 = 20 * babaHPc * gutsHPc * (Math.pow(a_ph2,2) / 3 * Math.pow(t_a_ph2,3)  + a_ph2 * (v_ph1 - v_base + 12) * Math.pow(t_a_ph2,2) + Math.pow(v_ph1 - v_base + 12,2) * t_a_ph2) / 144;
   let d_a_ph2 = ((v_ph2 + v_ph1)/2) * ((v_ph2 - v_ph1)/a_ph2);
   let HP_s_ph2 = 0
   
-  let a_ph3 = a;
+  let a_ph3 = 0.0006 * Math.sqrt(500.0 * c_power) * baba_a * distance_a * style_table[style][6];
   v_ph3 = v_spurt;
   let t_a_ph3 = (v_ph3 - v_ph2)/a_ph3;
   let HP_a_ph3 = 20 * babaHPc * gutsHPc * (Math.pow(a_ph3,2) / 3 * Math.pow(t_a_ph3,3)  + a_ph3 * (v_ph2 - v_base + 12) * Math.pow(t_a_ph3,2) + Math.pow(v_ph2 - v_base + 12,2) * t_a_ph3) / 144;
