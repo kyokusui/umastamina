@@ -1,79 +1,49 @@
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
   <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
-
   <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>ウマ娘スタミナ計算</title>
   <style type="text/css">
     @media screen and (min-width:480px) {
-
       /*　画面サイズが480pxからはここを読み込む　*/
       body {
         width: 30em;
       }
     }
-
     @media screen and (min-width:768px) and (max-width:1024px) {
-
       /*　画面サイズが768pxから1024pxまではここを読み込む　*/
       body {
         width: 30em;
       }
     }
-
     @media screen and (min-width:1024px) {
-
       /*　画面サイズが1024pxからはここを読み込む　*/
       body {
         width: 30em;
       }
     }
-
     /*　-----------*/
     body{
       font-family:"Noto Sans JP";
       font-family:"YU Gothic UI";
       font-family:"ヒラギノ角ゴ ProN";
-    }
-
-    div {
-      display: table !important;
-      width: 100%;
-      margin: auto;
-      margin-left: auto;
-      margin-right: auto;
-      background-color: white;
-    }
-
-    .d1 {
-      display: table !important;
-      width: ;
-      margin: auto;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    body {
+      font-family:"Arial";
       background-color: lightgray;
       border: solid thin black;
-
       margin: auto;
-
-      /*　----------- text-align: center;
-      align-items: center;*/
     }
-
+    div {
+      background-color: white;
+    }
     input {
       font-size: 1em;
       vertical-align: middle;
       text-align: center;
       margin: auto;
     }
-
-    table {
+    .table1 {
       width: 90%;
       border-collapse: collapse;
       display: table !important;
@@ -81,50 +51,46 @@
       margin-left: 5%;
       margin-right: 5%;
     }
-
-    .table1 {}
-
+    }
     .tr {
       width: 100%;
     }
-
-    td {
-      border: solid 1px black;
-    }
-
     .td1 {
+      border: solid 1px black;
       width: 25%;
       text-align: center;
-      background-color: #EEEEEE
+      background-color: gainsboro
     }
-
     .td2 {
-      width: 25%;
+      border: solid 1px black;
       text-align: center;
       align-content: center;
     }
-
     .td3 {
-      width: ;
+      border: solid 1px black;
       text-align: center;
-      background-color: #EEEEEE;
-      padding-right: 1px;
-      padding-left: 1px;
+      background-color: gainsboro;
     }
-
     .td4 {
+      border: solid 1px black;
       text-align: center;
     }
-
+    .table2 {
+      border-collapse: collapse;
+      margin: auto;
+      table-layout:;
+    }
+    .td5 {
+      border: solid 1px black;
+      width:6em;
+    }
     -->
   </style>
-  <title>ウマ娘スタミナ計算</title>
 </head>
-
 <body>
   <div style="text-align:center;">
-    <span style="font-weight:bold;font-size:1.2em;">ウマ娘必要スタミナ計算</span>
-    <div style="font-size:0.5em;">
+    <span style="font-weight:bold;font-size:1.2em;">ウマ娘必要スタミナ計算</span>ver.0.1
+    <div style="font-size:0.7em;">
       終盤開始と同時にスパートしゴールまで減速せず走り抜ける為のスタミナを計算
     </div>
   </div>
@@ -148,7 +114,7 @@
               title="1~1200"></td>
         </tr>
       </table>
-      <table>
+      <table class="table1">
         <tr>
           <td class="td3"><label for="motivation">やる気</label></td>
           <td class="td3"><label for="running_style">脚質</label></td>
@@ -157,7 +123,7 @@
           <td class="td3"><label for="baba_condition">バ場状態</label></td>
         </tr>
         <tr>
-          <td class="td4">
+          <td class="td2">
             <select id="motivation">
               <option value="1.04">絶好調</option>
               <option value="1.02">好調</option>
@@ -165,7 +131,7 @@
               <option value="0.98">不調</option>
               <option value="0.95">絶不調</option </select>
           </td>
-          <td class="td4">
+          <td class="td2">
             <select id="running_style">
               <option value="0">逃げ</option>
               <option value="1">先行</option>
@@ -173,7 +139,7 @@
               <option value="3">追込</option>
             </select>
           </td>
-          <td class="td4">
+          <td class="td2">
             <select id="distance">
               <option value="1000">1000m</option>
               <option value="1200">1200m</option>
@@ -192,7 +158,7 @@
               <option value="3600">3600m</option>
             </select>
           </td>
-          <td class="td4">
+          <td class="td2">
             <select id="distance_aptitude">
               <option value="1.05">S</option>
               <option value="1.00" selected="">A</option>
@@ -204,7 +170,7 @@
               <option value="0.10">G</option>
             </select>
           </td>
-          <td class="td4">
+          <td class="td2">
             <select id="baba_condition">
               <option value="0" selected>良</option>
               <option value="1">稍重</option>
@@ -215,28 +181,51 @@
         </tr>
       </table>
     </div>
-    <div style="text-align:center;margin:5px;">
+    <div style="text-align:center;padding:5px;">
       <button style="font-size:1em;" type="button" id="btn1">計算</button>
     </div>
     <div style="text-align:center;">
-      必要スタミナ</nav><input type="text" id="tBox" size="4em">
-      <div style="font-size:0.8em;">
-        スキル回復量（スタミナ換算）:
-         レア <span id="span1" size="4em">-</span>
-         通常 <span id="span2">-</span>
-      </div>
-      <div style="font-size:0.8em;">
-        推定表示タイム <span id="span3">-:-.-</span>
-      </div>
-      <div style="font-size:0.5em;size:100%;">
-        ※逃げ以外はペースダウンモードがありペースが遅ければ計算よりスタミナ消費は低くなる。<br>
-        ※ダートではタイムが合いません。<br>
-      </div>
-      <div>
+      <table class="table2">
+        <tr>
+          <td class="td3">必要スタミナ</td><td class="td5"><input type="text" id="tBox" size="5em"></td>
+        </tr>
+        <tr style="text-align:center;font-size:0.8em;">
+          <td class="td3">
+            スキル回復量</noframes><br>
+            （スタミナ量に換算）
+          </td>
+          <td class="td5" style="text-align:left;">
+            <table class="table2" style="width:100%;">
+             <tr>
+              <td class="td3" style="width:3em;">レア</td><td class="td2"><span id="span1">-</span></td>
+              </tr>
+             <tr>
+              <td class="td3" style="width:3em;">通常</td><td class="td2"><span id="span2">-</span></td> 
+              </tr>
+              
+            </table>
+          </td>
+        </tr>
+    </table>
+    <hr>
+    <div style="text-align:center;font-size:0.8em;">
+      <table class="table2">
+        <tr>
+          <td class="td3">推定表示タイム</td>
+          <td class="td5"><span id="span3">--:--.--</span></td>
+        </tr>
+      </table>
+    </div>
+    <hr>
+    <div style="font-size:0.5em;">
+      ※逃げ以外はペースダウンモードがありペースが遅ければ計算よりスタミナ消費は低くなる。<br>
+      ※ダートはタイムが計算に合わないので芝のみ。<br>
+    </div>
+    <hr>
+    <div>デバッグ欄<br>
         <textarea id="log" name="debug" rows="25" cols="50">
 debug ...
         </textarea>
-      </div>
     </div>
     <script type="text/javascript" src="./jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="./umastamina.js"></script>
