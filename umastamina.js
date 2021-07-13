@@ -74,44 +74,58 @@ $("#btn1").on("click", function()  {
   let HP_a_start = 20 * babaHPc * (Math.pow(a_start,2) / 3 * Math.pow(t_a_start,3)  + a_start * (3.0 - v_base + 12) * Math.pow(t_a_start,2) + Math.pow(3.0 - v_base + 12,2) * t_a_start) / 144;
   let d_a_start = (3.0 + v_start)/2 * t_a_start;
   
+//phase0計算
+  let d_a_ph0, d_s_ph0, HP_a_ph0, HP_s_ph0, t_a_ph0, t_s_ph0;
   let a_ph0 = 0.0006 * Math.sqrt(500.0 * c_power) * baba_a * distance_a *style_table[style][4];
-  let t_a_ph0 = (v_ph0 - v_start)/a_ph0;
-  let d_a_ph0 = (v_ph0 + v_start)/2 * t_a_ph0;
-  let HP_a_ph0 = 0;
-  let d_s_ph0 = 0;
-  let t_s_ph0 = 0;
-  let HP_s_ph0 = 0;
-  if (d_a_ph0 <= distance/6 - d_a_start) { //加速距離がphase0に収まるか
+  t_a_ph0 = (v_ph0 - v_start)/a_ph0;
+  d_a_ph0 = (v_ph0 + v_start)/2 * t_a_ph0;
+  d_s_ph0 = distance/6 - d_a_start - d_a_ph0;
+  if (d_s_ph0 > 0) {
     HP_a_ph0 = 20 * babaHPc *           (Math.pow(a_ph0,2) / 3 * Math.pow(t_a_ph0,3)  + a_ph0 * (v_start - v_base + 12) * Math.pow(t_a_ph0,2) + Math.pow(v_start - v_base + 12,2) * t_a_ph0) / 144;
-    d_s_ph0 = distance/6 - d_a_start - d_a_ph0;
     t_s_ph0 = d_s_ph0/v_ph0;
     HP_s_ph0 = 20 * babaHPc *           Math.pow(v_ph0 - v_base + 12.0, 2) / 144 * t_s_ph0;
-  } else {
+  } else {////パワーが低すぎて加速距離がphase0に収まらない場合
     d_a_ph0 = distance/6 - d_a_start;
+    d_s_ph0 = 0;
     t_a_ph0 = (-v_start + Math.sqrt(Math.pow(v_start,2) + 2 * a_ph0 * d_a_ph0)) / a_ph0;
+    t_s_ph0 = 0;
     v_ph0 = v_start + a_ph0 * t_a_ph0;
-    error_message = error_message + "d_s_ph0 error";
+    HP_a_ph0 =  20 * babaHPc *          (Math.pow(a_ph0,2) / 3 * Math.pow(t_a_ph0,3)  + a_ph0 * (v_start - v_base + 12) * Math.pow(t_a_ph0,2) + Math.pow(v_start - v_base + 12,2) * t_a_ph0) / 144;
+    HP_s_ph0 = 0;
+    error_message = error_message + "d_s_ph0 is negative value.";
   };
-  
+
+//phase1計算
+  let d_a_ph1, d_s_ph1, HP_a_ph1, HP_s_ph1, t_a_ph1, t_s_ph1;
   let a_ph1 =  0.0006 * Math.sqrt(500.0 * c_power) * baba_a * distance_a * style_table[style][5];
   if (v_ph1 <= v_ph0) {a_ph1 = -0.8;}; //phase1目標速度がphase0速度より低い場合減速
-  let t_a_ph1 = (v_ph1 - v_ph0)/a_ph1;
-  let HP_a_ph1 = 20 * babaHPc *           (Math.pow(a_ph1,2) / 3 * Math.pow(t_a_ph1,3)  + a_ph1 * (v_ph0 - v_base + 12) * Math.pow(t_a_ph1,2) + Math.pow(v_ph0 - v_base + 12,2) * t_a_ph1) / 144;
-  let d_a_ph1 = (v_ph1 + v_ph0)/2 * t_a_ph1;
-  let d_s_ph1 = distance/2 - d_a_ph1;
-  if (d_s_ph1 <= 0) {error_message = error_message + "d_s_ph1 error";};
-  let t_s_ph1 = d_s_ph1/v_ph1;
-  let HP_s_ph1 = 20 * babaHPc *           Math.pow(v_ph1 - v_base + 12.0, 2) / 144 * t_s_ph1;
-  
+  t_a_ph1 = (v_ph1 - v_ph0)/a_ph1;
+  d_a_ph1 = (v_ph1 + v_ph0)/2 * t_a_ph1;
+  d_s_ph1 = distance/2 - d_a_ph1;
+  if (d_s_ph1 > 0) {
+    HP_a_ph1 = 20 * babaHPc *           (Math.pow(a_ph1,2) / 3 * Math.pow(t_a_ph1,3)  + a_ph1 * (v_ph0 - v_base + 12) * Math.pow(t_a_ph1,2) + Math.pow(v_ph0 - v_base + 12,2) * t_a_ph1) / 144;
+    t_s_ph1 = d_s_ph1/v_ph1;
+    HP_s_ph1 = 20 * babaHPc *           Math.pow(v_ph1 - v_base + 12.0, 2) / 144 * t_s_ph1;
+  } else {////パワーが低すぎて加速距離がphase1に収まらない場合
+    d_a_ph1 = distance/2;
+    d_s_ph1 = 0;
+    t_a_ph1 = (-v_ph0 + Math.sqrt(Math.pow(v_ph0,2) + 2 * a_ph1 * d_a_ph1)) / a_ph1;
+    t_s_ph1 = 0;
+    v_ph1 = v_ph0 + a_ph1 * t_a_ph1;
+    HP_a_ph1 =  20 * babaHPc *          (Math.pow(a_ph1,2) / 3 * Math.pow(t_a_ph1,3)  + a_ph1 * (v_ph0 - v_base + 12) * Math.pow(t_a_ph1,2) + Math.pow(v_ph0 - v_base + 12,2) * t_a_ph1) / 144;
+    HP_s_ph1 = 0;
+    error_message = error_message + "d_s_ph1 is negative value.";
+  };
+
   let HP_sum_ph01 = HP_a_start + HP_a_ph0 + HP_s_ph0 + HP_a_ph1 + HP_s_ph1; //phase1までの消費HP
   let d_sum_ph01 = d_a_start + d_a_ph0 + d_s_ph0 + d_a_ph1 + d_s_ph1; //phase1までの経過距離
   let t_sum_ph01 = t_a_start + t_a_ph0 + t_s_ph0 + t_a_ph1 + t_s_ph1; //phase1までの経過時間
 
+//(phase2,3)仮計算
   let a_ph2 = 0.0006 * Math.sqrt(500.0 * c_power) * baba_a * distance_a * style_table[style][6];
   let t_a_ph2 = (v_ph2 - v_ph1)/a_ph2;
   let HP_a_ph2 = 20 * babaHPc * gutsHPc * (Math.pow(a_ph2,2) / 3 * Math.pow(t_a_ph2,3)  + a_ph2 * (v_ph1 - v_base + 12) * Math.pow(t_a_ph2,2) + Math.pow(v_ph1 - v_base + 12,2) * t_a_ph2) / 144;
   let d_a_ph2 = ((v_ph2 + v_ph1)/2) * ((v_ph2 - v_ph1)/a_ph2);
-  let HP_s_ph2 = 0
   
   let a_ph3 = 0.0006 * Math.sqrt(500.0 * c_power) * baba_a * distance_a * style_table[style][6];
   v_ph3 = v_spurt;
@@ -119,17 +133,31 @@ $("#btn1").on("click", function()  {
   let HP_a_ph3 = 20 * babaHPc * gutsHPc * (Math.pow(a_ph3,2) / 3 * Math.pow(t_a_ph3,3)  + a_ph3 * (v_ph2 - v_base + 12) * Math.pow(t_a_ph3,2) + Math.pow(v_ph2 - v_base + 12,2) * t_a_ph3) / 144;
   let d_a_ph3 = ((v_ph3 + v_ph2)/2) * ((v_ph3 - v_ph2)/a_ph3);
   
-
-  let d_a_spurt = ((v_spurt + v_ph1)/2) * ((v_spurt - v_ph1)/a_ph3);
-  let d_s_spurt = distance/3 - d_a_spurt;	//60m減速無し
-  let t_s_spurt = d_s_spurt / v_spurt;
-  let HP_s_spurt = 20 * babaHPc * gutsHPc * Math.pow(v_spurt - v_base + 12,2) / 144 * t_s_spurt;
-  let HP_need = HP_sum_ph01 + HP_a_ph2 + HP_a_ph3 + HP_s_spurt; //
+//spurt(phase2,3)計算
+  let d_a_spurt, d_s_spurt, HP_a_spurt, HP_s_spurt, t_a_spurt, t_s_spurt;
+  t_a_spurt = (v_spurt - v_ph1)/a_ph3;
+  d_a_spurt = ((v_spurt + v_ph1)/2) * t_a_spurt;
+  d_s_spurt = distance/3 - d_a_spurt;	//60m減速無し
+  if (d_s_spurt > 0) {
+    HP_a_spurt = 20 * babaHPc * gutsHPc * (Math.pow(a_ph2,2) / 3 * Math.pow(t_a_spurt,3)  + a_ph2 * (v_ph1 - v_base + 12) * Math.pow(t_a_spurt,2) + Math.pow(v_ph1 - v_base + 12,2) * t_a_spurt) / 144;
+    t_s_spurt = d_s_spurt / v_spurt;
+    HP_s_spurt = 20 * babaHPc * gutsHPc * Math.pow(v_spurt - v_base + 12,2) / 144 * t_s_spurt;
+  } else {//パワーが低すぎてspurt区間に収まらない場合
+    d_a_spurt = distance/3;
+    d_s_spurt = 0;
+    t_a_spurt = (-v_ph2 + Math.sqrt(Math.pow(v_ph2,2) + 2 * a_ph2 * d_a_spurt)) / a_ph2;
+    t_s_spurt = 0;
+    HP_a_spurt = 20 * babaHPc * gutsHPc * (Math.pow(a_ph3,2) / 3 * Math.pow(t_a_spurt,3)  + a_ph3 * (v_ph1 - v_base + 12) * Math.pow(t_a_spurt,2) + Math.pow(v_ph1 - v_base + 12,2) * t_a_spurt) / 144;
+    HP_s_spurt = 0;
+    error_message = "d_s_spurt is negative value."
+  };
+  
+  let HP_need = HP_sum_ph01 + HP_a_spurt + HP_s_spurt;
   let stamina_need1 = (HP_need / (1 + 0 / 10000) - distance)/(0.8*style_table[style][0])/motiva; //最速スパート開始し減速せず走り抜ける為に必要なスタミナ
   //初期HP = 0.8 × 脚質係数 × 補正スタミナ値 + コース距離[m]
 
-  let d_sum_1 = d_sum_ph01 + d_a_ph2 + d_a_ph3 + d_s_spurt;
-  let t_sum_1 = t_sum_ph01 + t_a_ph2 + t_a_ph3 + t_s_spurt;
+  let d_sum_1 = d_sum_ph01 + d_a_spurt + d_s_spurt;
+  let t_sum_1 = t_sum_ph01 + t_a_spurt + t_s_spurt;
   let time_c = Math.round(t_sum_1 * 1.18 * 1000)/1000;	//補正後タイム
  // let temp = if(1 = Math.floor(time_c % 60).toString().length);{}
   let time_d = "" + Math.floor(time_c / 60) + ":" + (Math.floor(time_c % 60 * 100)/100 + 100).toString().substr(1,5);	//表示タイム
@@ -149,9 +177,6 @@ $("#btn1").on("click", function()  {
   let time_c2 = Math.round(t_sum_2 * 1.18 * 1000)/1000;	//補正後タイム
   let time_d2 = "" + Math.floor(time_c2 / 60) + ":" + Math.floor(time_c2 % 60 * 100)/100;	//表示タイム
   
-
-
-
   $("#log").val("" +
   "" + Math.ceil(stamina_need2) + "←終盤と同時にスパートするための最低スタミナ（中盤までの回復スキル込み）\n" +
   
@@ -179,6 +204,7 @@ $("#btn1").on("click", function()  {
   "t_s_ph1:" + t_s_ph1 + "\n" +
   "t_a_ph2:" + t_a_ph2 + "\n" +
   "t_a_ph3:" + t_a_ph3 + "\n" +
+  "t_a_spurt:" + t_a_spurt + "\n" +
   "t_s_spurt:" + t_s_spurt + "\n" +
   "d_a_start:" + d_a_start + "\n" +
   "d_a_ph0:" + d_a_ph0 + "\n" +
@@ -187,6 +213,7 @@ $("#btn1").on("click", function()  {
   "d_s_ph1:" + d_s_ph1 + "\n" +
   "d_a_ph2:" + d_a_ph2 + "\n" +
   "d_a_ph3:" + d_a_ph3 + "\n" +
+  "d_a_spurt:" + d_a_spurt + "\n" +
   "d_s_spurt:" + d_s_spurt + "\n" +
   "d_sum_ph01:" + d_sum_ph01 + "\n" +
   "d_sum_1:" + d_sum_1 + "\n" +
@@ -195,8 +222,8 @@ $("#btn1").on("click", function()  {
   "HP_a_ph1:" + HP_a_ph1 + "\n" +
   "HP_s_ph1:" + HP_s_ph1 + "\n" +
   "HP_a_ph2:" + HP_a_ph2 + "\n" +
-  "HP_s_ph2:" + HP_s_ph2 + "\n" +
   "HP_a_ph3:" + HP_a_ph3 + "\n" +
+  "HP_a_spurt:" + HP_a_spurt + "\n" +
   "HP_s_spurt:" + HP_s_spurt + "\n" +
   "HP_sum_ph01:" + HP_sum_ph01 + "\n" +
   "HP_sum_1:" + HP_need + "\n" +
