@@ -30,12 +30,12 @@
       font-family:"YU Gothic UI";
       font-family:"ヒラギノ角ゴ ProN";
       font-family:"Arial";
-      background-color: lightgray;
+      background-color:white;
       border: solid thin black;
       margin: auto;
     }
     div {
-      background-color: white;
+      background-color: rgb(247, 231, 196);
     }
     input {
       font-size: 1em;
@@ -51,38 +51,24 @@
       margin-left: 5%;
       margin-right: 5%;
     }
-    }
     .tr {
       width: 100%;
     }
     .td1 {
       border: solid 1px black;
-      width: 25%;
       text-align: center;
-      background-color: gainsboro
+      background-color: rgb(206, 255, 149);
     }
     .td2 {
       border: solid 1px black;
       text-align: center;
       align-content: center;
-    }
-    .td3 {
-      border: solid 1px black;
-      text-align: center;
-      background-color: gainsboro;
-    }
-    .td4 {
-      border: solid 1px black;
-      text-align: center;
+      background-color: rgb(255, 251, 235);
     }
     .table2 {
       border-collapse: collapse;
       margin: auto;
       table-layout:;
-    }
-    .td5 {
-      border: solid 1px black;
-      width:6em;
     }
     -->
   </style>
@@ -98,10 +84,10 @@
     <div>
       <table class="table1">
         <tr>
-          <td class="td1">スピード</td>
-          <td class="td1">パワー</td>
-          <td class="td1">根性</td>
-          <td class="td1">賢さ</td>
+          <td class="td1" style="width:25%;">スピード</td>
+          <td class="td1" style="width:25%;">パワー</td>
+          <td class="td1" style="width:25%;">根性</td>
+          <td class="td1" style="width:25%;">賢さ</td>
         </tr>
         <tr>
           <td class="td2"><input type="tel" name="speedInput" id="speedInput" maxlength="4" value="1200" size="4em"
@@ -116,11 +102,11 @@
       </table>
       <table class="table1">
         <tr>
-          <td class="td3"><label for="motivation">やる気</label></td>
-          <td class="td3"><label for="running_style">脚質</label></td>
-          <td class="td3"><label for="distance">レース距離</label></td>
-          <td class="td3"><label for="distance_aptitude">距離適性</label></td>
-          <td class="td3"><label for="baba_condition">バ場状態</label></td>
+          <td class="td1"><label for="motivation">やる気</label></td>
+          <td class="td1"><label for="running_style">脚質</label></td>
+          <td class="td1"><label for="distance">レース距離</label></td>
+          <td class="td1"><label for="distance_aptitude">距離適性</label></td>
+          <td class="td1"><label for="baba_condition">バ場状態</label></td>
         </tr>
         <tr>
           <td class="td2">
@@ -187,20 +173,21 @@
     <div style="text-align:center;">
       <table class="table2">
         <tr>
-          <td class="td3">必要スタミナ</td><td class="td5"><input type="text" id="tBox" size="5em"></td>
+          <td class="td1">必要スタミナ</td>
+          <td class="td2"><input type="text" id="tBox" size="5em"></td>
         </tr>
         <tr style="text-align:center;font-size:0.8em;">
-          <td class="td3">
+          <td class="td1">
             スキル回復量</noframes><br>
             （スタミナ量に換算）
           </td>
-          <td class="td5" style="text-align:left;">
+          <td class="td2" style="text-align:left;">
             <table class="table2" style="width:100%;">
              <tr>
-              <td class="td3" style="width:3em;">レア</td><td class="td2"><span id="span1">-</span></td>
+              <td class="td1" style="width:3em;">レア</td><td class="td2"><span id="span1">-</span></td>
               </tr>
              <tr>
-              <td class="td3" style="width:3em;">通常</td><td class="td2"><span id="span2">-</span></td> 
+              <td class="td1" style="width:3em;">通常</td><td class="td2"><span id="span2">-</span></td> 
               </tr>
               
             </table>
@@ -211,8 +198,8 @@
     <div style="text-align:center;font-size:0.8em;">
       <table class="table2">
         <tr>
-          <td class="td3">推定表示タイム</td>
-          <td class="td5"><span id="span3">--:--.--</span></td>
+          <td class="td1">推定表示タイム</td>
+          <td class="td2" style="width:6em;"><span id="span3">--:--.--</span></td>
         </tr>
       </table>
     </div>
