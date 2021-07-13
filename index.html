@@ -3,141 +3,217 @@
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  
+
   <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
-  
-<meta name="apple-mobile-web-app-capable" content="yes">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
   <style type="text/css">
+    @media screen and (min-width:480px) {
 
+      /*　画面サイズが480pxからはここを読み込む　*/
+      body {
+        width: 30em;
+      }
+    }
 
-    <!--
+    @media screen and (min-width:768px) and (max-width:1024px) {
+
+      /*　画面サイズが768pxから1024pxまではここを読み込む　*/
+      body {
+        width: 30em;
+      }
+    }
+
+    @media screen and (min-width:1024px) {
+
+      /*　画面サイズが1024pxからはここを読み込む　*/
+      body {
+        width: 30em;
+      }
+    }
+
+    /*　-----------*/
+
+    
+    div {
+      display: table !important;
+      width :;
+      margin: auto;
+      margin-left: auto;
+      margin-right: auto;
+      background-color:#aaaaFF;
+    }
+    .d1 {
+      display: table !important;
+      width :;
+      margin: auto;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    body {
+      background-color:lightgray ;
+      border:solid thin black ;
+      
+      margin:auto;
+      
+  /*　----------- text-align: center;
+      align-items: center;*/
+    }
+
     input {
       font-size: 1em;
       vertical-align: middle;
       text-align: center;
+      margin: auto;
+    }
+
+    table {
+      border-collapse: collapse;
+      display: table !important;
+      margin: auto;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .table1 {
+      width: 20em;
+    }
+
+    .tr {
+      width: 100%;
+    }
+
+    td {
+      border: solid 1px black;
     }
 
     .td1 {
-      width: ;
+      width:  25%;
       text-align: center;
       background-color: #EEEEEE
     }
-
     .td2 {
-      width: 5em;
+      width: 25%;
       text-align: center;
+      align-content: center;
     }
-
     .td3 {
+      width:25%;
       text-align: center;
       background-color: #EEEEEE;
-      padding-right:5px;
-      padding-left:5px;
+      padding-right: 5px;
+      padding-left: 5px;
     }
     .td4 {
       text-align: center;
     }
-    -->
+
+      -->
   </style>
   <title>ウマ娘スタミナ計算</title>
 </head>
 
 <body>
-  <div>
+  <div style="text-align:center;">
     <span style="font-weight:bold;font-size:1.2em;">ウマ娘必要スタミナ計算</span>
     <div style="font-size:0.5em;">
       終盤開始と同時にスパートしゴールまで減速せず走り抜ける為のスタミナを計算
     </div>
   </div>
   <div id="area1">
-    <table border="1" style="border-collapse:collapse;">
-      <tr>
-        <td class="td1">スピード</td>
-        <td class="td1">パワー</td>
-        <td class="td1">根性</td>
-        <td class="td1">賢さ</td>
-      </tr>
-      <tr>
-        <td class="td2"><input type="tel" name="speedInput" id="speedInput" maxlength="4" value="1200" size="4em"
-            title="1~1200"></td>
-        <td class="td2"><input type="tel" name="powerInput" id="powerInput" maxlength="4" value="1200" size="4em"
-            title="1~1200" </td>
-        <td class="td2"><input type="tel" name="gutsInput" id="gutsInput" maxlength="4" value="300" size="4em"
-            title="1~1200"></td>
-        <td class="td2"><input type="tel" name="wisdomInput" id="wisdomInput" maxlength="4" value="400" size="4em"
-            title="1~1200"></td>
-      </tr>
-    </table>
-    <table border="1" style="border-collapse:collapse;">
-      <tr>
-        <td class="td3"><label for="motivation">やる気</label></td>
-        <td class="td3"><label for="running_style">脚質</label></td>
-        <td class="td3"><label for="distance">レース距離</label></td>
-        <td class="td3"><label for="distance_aptitude">距離適性</label></td>
-        <td class="td3"><label for="baba_condition">バ場状態</label></td>
-      </tr>
-      <tr>
-        <td class="td4">
-          <select id="motivation">
-            <option value="1.04">絶好調</option>
-            <option value="1.02">好調</option>
-            <option value="1.0">普通</option>
-            <option value="0.98">不調</option>
-            <option value="0.95">絶不調</option </select>
-        </td>
-        <td class="td4">
-          <select id="running_style">
-            <option value="0">逃げ</option>
-            <option value="1">先行</option>
-            <option value="2">差し</option>
-            <option value="3">追込</option>
-          </select>
-        </td>
-        <td class="td4">
-          <select id="distance">
-            <option value="1000">1000m</option>
-            <option value="1200">1200m</option>
-            <option value="1400">1400m</option>
-            <option value="1500">1500m</option>
-            <option value="1600" selected>1600m</option>
-            <option value="1800">1800m</option>
-            <option value="2000">2000m</option>
-            <option value="2200">2200m</option>
-            <option value="2400">2400m</option>
-            <option value="2500">2500m</option>
-            <option value="2600">2600m</option>
-            <option value="3000">3000m</option>
-            <option value="3200">3200m</option>
-            <option value="3400">3400m</option>
-            <option value="3600">3600m</option>
-          </select>
-        </td>
-        <td class="td4">
-          <select id="distance_aptitude">
-            <option value="1.05">S</option>
-            <option value="1.00" selected="">A</option>
-            <option value="0.90">B</option>
-            <option value="0.80">C</option>
-            <option value="0.60">D</option>
-            <option value="0.40">E</option>
-            <option value="0.20">F</option>
-            <option value="0.10">G</option>
-          </select>
-        </td>
-        <td class="td4">
-          <select id="baba_condition">
-            <option value="0" selected>良</option>
-            <option value="1">稍重</option>
-            <option value="2">重</option>
-            <option value="3">不良</option>
-          </select>
-        </td>
-      </tr>
-    </table>
+    <div>
+      <table class="table1">
+        <tr>
+          <td class="td1">スピード</td>
+          <td class="td1">パワー</td>
+          <td class="td1">根性</td>
+          <td class="td1">賢さ</td>
+        </tr>
+        <tr>
+          <td class="td2"><input type="tel" name="speedInput" id="speedInput" maxlength="4" value="1200" size="4em"
+              title="1~1200"></td>
+          <td class="td2"><input type="tel" name="powerInput" id="powerInput" maxlength="4" value="1200" size="4em"
+              title="1~1200" </td>
+          <td class="td2"><input type="tel" name="gutsInput" id="gutsInput" maxlength="4" value="300" size="4em"
+              title="1~1200"></td>
+          <td class="td2"><input type="tel" name="wisdomInput" id="wisdomInput" maxlength="4" value="400" size="4em"
+              title="1~1200"></td>
+        </tr>
+      </table>
+      <table>
+        <tr>
+          <td class="td3"><label for="motivation">やる気</label></td>
+          <td class="td3"><label for="running_style">脚質</label></td>
+          <td class="td3"><label for="distance">レース距離</label></td>
+          <td class="td3"><label for="distance_aptitude">距離適性</label></td>
+          <td class="td3"><label for="baba_condition">バ場状態</label></td>
+        </tr>
+        <tr>
+          <td class="td4">
+            <select id="motivation">
+              <option value="1.04">絶好調</option>
+              <option value="1.02">好調</option>
+              <option value="1.0">普通</option>
+              <option value="0.98">不調</option>
+              <option value="0.95">絶不調</option </select>
+          </td>
+          <td class="td4">
+            <select id="running_style">
+              <option value="0">逃げ</option>
+              <option value="1">先行</option>
+              <option value="2">差し</option>
+              <option value="3">追込</option>
+            </select>
+          </td>
+          <td class="td4">
+            <select id="distance">
+              <option value="1000">1000m</option>
+              <option value="1200">1200m</option>
+              <option value="1400">1400m</option>
+              <option value="1500">1500m</option>
+              <option value="1600" selected>1600m</option>
+              <option value="1800">1800m</option>
+              <option value="2000">2000m</option>
+              <option value="2200">2200m</option>
+              <option value="2400">2400m</option>
+              <option value="2500">2500m</option>
+              <option value="2600">2600m</option>
+              <option value="3000">3000m</option>
+              <option value="3200">3200m</option>
+              <option value="3400">3400m</option>
+              <option value="3600">3600m</option>
+            </select>
+          </td>
+          <td class="td4">
+            <select id="distance_aptitude">
+              <option value="1.05">S</option>
+              <option value="1.00" selected="">A</option>
+              <option value="0.90">B</option>
+              <option value="0.80">C</option>
+              <option value="0.60">D</option>
+              <option value="0.40">E</option>
+              <option value="0.20">F</option>
+              <option value="0.10">G</option>
+            </select>
+          </td>
+          <td class="td4">
+            <select id="baba_condition">
+              <option value="0" selected>良</option>
+              <option value="1">稍重</option>
+              <option value="2">重</option>
+              <option value="3">不良</option>
+            </select>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div>
+      <button style="font-size:1em;" type="button" id="btn1">計算</button><br>
+      必要スタミナ<input type="text" id="tBox" size="4em"><br>
+    </div>
 
-    <button style="font-size:1em;" type="button" id="btn1">計算</button><br>
-    必要スタミナ<input type="text" id="tBox" size="4em"><br>
-    回復スキル相当スタミナ:レア <span id="span1" size="4em">-</span> 通常 <span id="span2">-</span><br>
+    <div>回復スキル相当スタミナ:レア <span id="span1" size="4em">-</span> 通常 <span id="span2">-</span></div>
     <div size="6em">推定表示タイム <span id="span3">-:-.-</span></div>
     <div style="font-size:0.5em;size:100%;">
       ※逃げ以外はペースダウンモードがありペースが遅ければ計算よりスタミナ消費は低くなりそう。<br>
