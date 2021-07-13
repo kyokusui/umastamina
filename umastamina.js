@@ -65,11 +65,10 @@ $("#btn1").on("click", function()  {
   let v_spurt = (v_ph2 + 0.01 * v_base) * 1.05 + Math.sqrt(500 * c_speed) * distance_a * 0.002;
 
   let gutsHPc = 1 + (200 / Math.sqrt(600 * c_guts)); //終盤根性係数
-  let a = 0.0006 * Math.sqrt(500.0 * c_power) * baba_a * distance_a;
-  //加速度(加速時) = 0.0006 × sqrt(500.0 × 補正パワー値) × バ場適性係数 × 距離適性係数 × 脚質係数(脚質＆phase) (+ スキル補正) [m/s^2]
   let HP_sum = 0;
   
-  let a_start = 24 + (0.0006 * Math.sqrt(500.0 * c_power) * style_table[style][4] * distance_a * baba_a);
+  //加速度(加速時) = 0.0006 × sqrt(500.0 × 補正パワー値) × バ場適性係数 × 距離適性係数 (+ スキル補正) × 脚質係数(脚質＆phase) [m/s^2]
+  let a_start = 24 + (0.0006 * Math.sqrt(500.0 * c_power) * distance_a * baba_a * style_table[style][4]);
   let v_start = v_base * 0.85;
   let t_a_start = (v_start - 3.0)/a_start;
   let HP_a_start = 20 * babaHPc * (Math.pow(a_start,2) / 3 * Math.pow(t_a_start,3)  + a_start * (3.0 - v_base + 12) * Math.pow(t_a_start,2) + Math.pow(3.0 - v_base + 12,2) * t_a_start) / 144;
@@ -165,7 +164,6 @@ $("#btn1").on("click", function()  {
   "c_guts:" + c_guts + "\n" +
   "c_wisdom:" + c_wisdom + "\n" +
   "babaHPc:" + babaHPc + "\n" +
-  "a:" + a + "\n" +
   "a_ph0:" + a_ph0 + "\n" +
   "a_ph1:" + a_ph1 + "\n" +
   "a_ph2:" + a_ph2 + "\n" +
